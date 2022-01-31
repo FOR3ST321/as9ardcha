@@ -41,6 +41,9 @@ function initialize() {
     //simpen history
     setHistory();
 }
+window.onbeforeunload = function() {
+    return "Dude, are you sure you want to leave? Think of the kittens!";
+}
 
 $(document).ready(function () {
     initialize();
