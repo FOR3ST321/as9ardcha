@@ -102,7 +102,9 @@ $(document).ready(function () {
         let nominal = data.prize.pop();
         let winner = data.lottery.pop();
         data.prizeLeft--;
-        // console.log(nominal);
+        console.log(winner);
+        console.log(nominal);
+        console.log(data.lottery);
 
         data.history.push({
             winner: winner,
