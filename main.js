@@ -5,6 +5,11 @@ function shuffle(arr) {
         .map((a) => a.value);
 }
 
+function getFormattedDate() {
+    var date = new Date();
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}
+
 function setPrizeList() {
     $("#25k").html(data.prizeList[0]);
     $("#50k").html(data.prizeList[1]);
@@ -47,6 +52,7 @@ window.onbeforeunload = function() {
 
 $(document).ready(function () {
     initialize();
+    $("#logButton").hide();
 
     function animateResult(nominal) {
         //ganti warna kalau 100k
@@ -76,10 +82,10 @@ $(document).ready(function () {
                         function () {
                             setTimeout(function () {
                                 $("#result-name").animate({ opacity: 1 , fontSize:'50px' }, 300);
-                            }, 1500);
+                            }, 1000);
                         }
                     );
-                }, 1000);
+                }, 500);
             });
     }
 
@@ -91,6 +97,7 @@ $(document).ready(function () {
         $(this).hide();
         console.log(data.prizeLeft);
         if(data.prizeLeft === 0){
+            $("#logButton").show();
             $("#btn").hide();
         }
     });
@@ -110,6 +117,17 @@ $(document).ready(function () {
             winner: winner,
             nominal: nominal,
         });
+
+        log.history.push({
+            winner: winner,
+            nominal: nominal,
+            time : getFormattedDate()
+        });
+
+        log.shuffleQueue.push({
+            queue : data.lottery,
+            time : getFormattedDate()
+        })
 
         //assign data
         $("#result-prize").html(`[${nominal}]`);
@@ -132,6 +150,9 @@ $(document).ready(function () {
         setPrizeList();
 
         $(this).hide();
+        var dt = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(log));
+        $("#logButton").html('<a href="data:' + dt + '" download="dataLog.json">Download Log</a>')
         animateResult(nominal);
     });
+
 });
