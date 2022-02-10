@@ -1,5 +1,5 @@
 let data = {
-    prizeList: [15, 13, 5, 3],
+    prizeList: [15, 14, 5, 3],
     // prizeList: [0,0,0,1],
     prizeLeft: 0,
     prize: [],
